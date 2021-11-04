@@ -23,6 +23,7 @@ int main()
     int dadocomienzo1 = 0;
     int dadocomienzo2 = 0;
     bool salir = false;
+    bool reroll = false;
     string jugador1;
     string jugador2;
 
@@ -49,28 +50,45 @@ int main()
         cin >> jugador2;
 
         //Establecer primer jugador
-        system("pause<nul");
         system("cls");
 
         cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
-        cout << jugador1 << " presioná Enter para tirar tu dado." << endl << endl;
-        system("Pause>nul");
-
-        dadocomienzo1 = 1 + rand() % 6;
-
-        cout << "Salio el: " << dadocomienzo1 << endl;
-
-        cout << jugador2 << " presioná Enter para tirar tu dado." << endl << endl;
-        system("Pause>nul");
-
-        dadocomienzo2 = 1 + rand() % 6;
-
-        cout << "Salio el: " << dadocomienzo2 << endl;
-        system("Pause>nul");
-
-
         
+        do {
+
+            cout << jugador1 << " presioná Enter para tirar tu dado." << endl << endl;
+            system("Pause>nul");
         
+            dadocomienzo1 = 1 + rand() % 6;
+
+            cout << "Salio el: " << dadocomienzo1 << endl;
+
+            cout << jugador2 << " presioná Enter para tirar tu dado." << endl << endl;
+            system("Pause>nul");
+            
+            dadocomienzo2 = 1 + rand() % 6;
+
+            cout << "Salio el: " << dadocomienzo2 << endl;
+            system("Pause>nul");
+
+            if (dadocomienzo1 == dadocomienzo2)
+            {
+                cout << "Empate. Tiremos de nuevo." << endl;
+                reroll = true;
+            }
+            else
+            {
+                reroll = false;
+            }
+
+        } while (reroll == true);
+        
+        if (dadocomienzo1 > dadocomienzo2)
+        {
+            cout << jugador1
+
+        }
+            
 
 
         break;
