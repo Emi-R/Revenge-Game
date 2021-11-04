@@ -1,3 +1,3 @@
 ﻿  main.cpp
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(15,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(20,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   revenge.vcxproj -> C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\x64\Debug\revenge.exe

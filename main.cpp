@@ -7,29 +7,42 @@ void mostrarMenu(void);
 
 void mostrarCreditos(void);
 
+string establecerPrimerJugador();
+
 int main()
 {
     
 
     setlocale(LC_ALL, "Spanish");
+
     srand(time(NULL));
 
     int opcion;
     string jugador;
-    string jugadoruno;
-    string jugadordos;
+    string jugadora;
+    string jugadorb;
 
     do
     {
     // Mostrar menú
     mostrarMenu();
 
-    cout << "Bienvenido! Selecciona la opcion deseada:";
+    cout << "Bienvenido! Seleccioná la opcion deseada:";
     cin >> opcion;
 
     switch (opcion)
     {
     case 1:
+
+        cout << "Jugador uno, ingresá tu nombre: ";
+        cin >> jugadora;
+
+        cout << "Jugador dos, ingresá tu nombre: ";
+        cin >> jugadorb;
+
+        establecerPrimerJugador();
+
+
         break;
     case 2:
         break;
@@ -88,4 +101,9 @@ void mostrarCreditos(void)
     cout << "Emiliano Ramírez - Legajo: 25583" << endl << endl;
 
     system("pause");
+}
+
+string establecerPrimerJugador()
+{
+
 }
