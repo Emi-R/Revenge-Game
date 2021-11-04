@@ -1,3 +1,4 @@
 ﻿  main.cpp
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(20,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(22,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(159): warning C4715: 'confirmacion': not all control paths return a value
   revenge.vcxproj -> C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\x64\Debug\revenge.exe

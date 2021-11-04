@@ -1,5 +1,8 @@
 #include <iostream>
+#include <istream>
+#include <string>
 #include <ctime>
+#include <conio.h>
 
 using namespace std;
 
@@ -7,40 +10,67 @@ void mostrarMenu(void);
 
 void mostrarCreditos(void);
 
-string establecerPrimerJugador();
+bool confirmacion(void);
 
 int main()
 {
-    
 
     setlocale(LC_ALL, "Spanish");
 
     srand(time(NULL));
 
     int opcion;
-    string jugador;
-    string jugadora;
-    string jugadorb;
+    int dadocomienzo1 = 0;
+    int dadocomienzo2 = 0;
+    bool salir = false;
+    string jugador1;
+    string jugador2;
 
     do
     {
+
     // Mostrar menú
     mostrarMenu();
 
-    cout << "Bienvenido! Seleccioná la opcion deseada:";
+    cout << "Bienvenido! Seleccioná la opcion deseada: ";
     cin >> opcion;
 
     switch (opcion)
     {
+    //Opcion Jugar
     case 1:
 
+        system("cls");
+        //Pedir Nombres
         cout << "Jugador uno, ingresá tu nombre: ";
-        cin >> jugadora;
+        cin >> jugador1;
 
         cout << "Jugador dos, ingresá tu nombre: ";
-        cin >> jugadorb;
+        cin >> jugador2;
 
-        establecerPrimerJugador();
+        //Establecer primer jugador
+        system("pause<nul");
+        system("cls");
+
+        cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
+        cout << jugador1 << " presioná Enter para tirar tu dado." << endl << endl;
+        system("Pause>nul");
+
+        dadocomienzo1 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo1 << endl;
+
+        cout << jugador2 << " presioná Enter para tirar tu dado." << endl << endl;
+        system("Pause>nul");
+
+        dadocomienzo2 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo2 << endl;
+        system("Pause>nul");
+
+
+        
+        
 
 
         break;
@@ -49,13 +79,12 @@ int main()
     case 3:
         mostrarCreditos();
         break;
+    case 0:
+        salir = confirmacion();
     default:
         break;
     }
     
-    //  Opcion Jugar
-    //      Pedir Nombres
-    //      Establecer primer jugador
     //      Tirada Jugador 1
     //          Lanzar 2 dados 12 caras
     //          Calcular numero objetivo
@@ -71,8 +100,8 @@ int main()
     //  Opcion Salir
     //marie
      
-   
-    } while (opcion != 0);
+    
+    } while (salir == false);
 
     return 0;
 }
@@ -100,10 +129,29 @@ void mostrarCreditos(void)
     cout << "Maria Jose Illanes Saldivia - Legajo: 24512" << endl;
     cout << "Emiliano Ramírez - Legajo: 25583" << endl << endl;
 
-    system("pause");
+    cout << "Presioná cualquier tecla para volver al menú principal." << endl;
+    system("Pause>nul");
+
 }
 
-string establecerPrimerJugador()
+bool confirmacion(void)
 {
+    char conf;
+    
+    cout << endl << "\t¿Desea salir del juego?" << endl;
+    cout << "\t   S -- Si | N -- No" << endl;
+    cin >> conf;
 
+    conf = toupper(conf);
+
+    if (conf == 'S')
+    {
+        return true;
+    }
+    else
+        if(conf == 'N')
+    
+        {
+            return false;
+        }
 }
