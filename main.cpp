@@ -56,6 +56,7 @@ int main()
     //      
     //  Opcion Estadistícas
     //  Opcion Salir
+    //marie
      
    
     } while (opcion != 0);
