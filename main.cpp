@@ -83,12 +83,12 @@ int main()
 
         } while (reroll == true);
         
-        if (dadocomienzo1 > dadocomienzo2)
+        /*if (dadocomienzo1 > dadocomienzo2)
         {
             cout << jugador1
 
         }
-            
+            */
 
 
         break;
@@ -141,8 +141,9 @@ void mostrarCreditos(void)
 {
     system("cls");
 
-    cout << "\t-- Créditos --" << endl << endl;
-    cout << "\tDesarollado por SkyNet" << endl << endl;
+    cout << "\t\t-- Créditos --" << endl << endl;
+    cout << "            Desarollado por SkyNet" << endl;
+    cout << "    para la Universidad Tecnológica Nacional (FRGP)" << endl << endl;
     cout << "Marianella Gottig - Legajo: 25508" <<endl;
     cout << "Maria Jose Illanes Saldivia - Legajo: 24512" << endl;
     cout << "Emiliano Ramírez - Legajo: 25583" << endl << endl;
