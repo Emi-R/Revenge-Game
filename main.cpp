@@ -15,6 +15,7 @@ void mostrarCreditos(void);
 
 bool confirmacion(void);
 
+bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int size);
 
 int main()
 {
@@ -24,17 +25,14 @@ int main()
     srand(time(NULL));
 
     int opcion;
-    int dadocomienzo1 = 0;
-    int dadocomienzo2 = 0;
     bool salir = false;   
-    bool reroll = false;
-    string jugador1;
-    string jugador2;
+    char jugador1[50] = {};
+    char jugador2[50] = {};
 
     do
     {
 
-    // Mostrar menú
+    // Se ejecuta funcion de mostrar menú
     mostrarMenu();
 
     cout << "Bienvenido! Seleccioná la opcion deseada: ";
@@ -53,47 +51,21 @@ int main()
         cout << "Jugador dos, ingresá tu nombre: ";
         cin >> jugador2;
 
-        //Establecer primer jugador
         system("cls");
 
         cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
-        
-        do {
 
-            cout << jugador1 << " presioná Enter para tirar tu dado." << endl << endl;
-            system("Pause>nul");
-        
-            dadocomienzo1 = 1 + rand() % 6;
-
-            cout << "Salio el: " << dadocomienzo1 << endl;
-
-            cout << jugador2 << " presioná Enter para tirar tu dado." << endl << endl;
-            system("Pause>nul");
-            
-            dadocomienzo2 = 1 + rand() % 6;
-
-            cout << "Salio el: " << dadocomienzo2 << endl;
-            system("Pause>nul");
-
-            if (dadocomienzo1 == dadocomienzo2)
-            {
-                cout << "Empate. Tiremos de nuevo." << endl;
-                reroll = true;
-            }
-            else
-            {
-                reroll = false;
-            }
-
-        } while (reroll == true);
-        
-        /*if (dadocomienzo1 > dadocomienzo2)
+        // Se ejecuta funcion de establecer primer jugador
+        if (establecerPrimerJugador(jugador1, 50, jugador2, 50) == true)
         {
-            cout << jugador1
-
+            cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
+            anykey();
         }
-            */
-
+        else
+        {
+            cout << jugador2 << " sacó el número mas alto! Comienza tirando." << endl;
+            anykey();
+        }
 
         break;
     case 2:
@@ -107,13 +79,13 @@ int main()
         break;
     }
     
-    //      Tirada Jugador 1
+    //      Tirada primer jugador
     //          Lanzar 2 dados 12 caras
     //          Calcular numero objetivo
     //          Lanzar dados stock (6 caras)
     //          Elegir suma seleccionada
     //          Tirada Exitosa
-    //      Tirada Jugador 2
+    //      Tirada segundo jugador
     //          Lanzar dados stock (6 caras)
     //      
     //      
@@ -177,4 +149,49 @@ bool confirmacion(void)
         {
             return false;
         }
+}
+
+bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
+{
+    int dadocomienzo1;
+    int dadocomienzo2;
+    bool reroll = false;
+
+    do {
+
+        cout << j1 << " presioná Enter para tirar tu dado." << endl;
+        system("Pause>nul");
+
+        dadocomienzo1 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo1 << endl << endl;
+
+        cout << j2 << " presioná Enter para tirar tu dado." << endl;
+        system("Pause>nul");
+
+        dadocomienzo2 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo2 << endl << endl;
+
+        if (dadocomienzo1 == dadocomienzo2)
+        {
+            cout << "Empate. Tiremos de nuevo." << endl;
+            reroll = true;
+        }
+        else
+        {
+            reroll = false;
+        }
+
+    } while (reroll == true);
+
+    if (dadocomienzo1 > dadocomienzo2)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
 }
