@@ -3,6 +3,7 @@
 #include <string>
 #include <ctime>
 #include <conio.h>
+#include <Windows.h>
 
 #include "rlutil.h"
 
@@ -17,6 +18,10 @@ bool confirmacion(void);
 
 bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int size);
 
+int tiradaNumeroObjetivo(void);
+
+void rollDados(void);
+
 int main()
 {
 
@@ -25,6 +30,7 @@ int main()
     srand(time(NULL));
 
     int opcion;
+    int numObj;
     bool salir = false;   
     char jugador1[50] = {};
     char jugador2[50] = {};
@@ -44,6 +50,7 @@ int main()
     case 1:
 
         system("cls");
+
         //Pedir Nombres
         cout << "Jugador uno, ingresá tu nombre: ";
         cin >> jugador1;
@@ -56,15 +63,24 @@ int main()
         cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
         // Se ejecuta funcion de establecer primer jugador
+
         if (establecerPrimerJugador(jugador1, 50, jugador2, 50) == true)
         {
             cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
             anykey();
+            cls;
+
+            cout << "\t-- Ronda número objetivo --" << endl;
+
+            numObj = tiradaNumeroObjetivo();
+
         }
         else
         {
             cout << jugador2 << " sacó el número mas alto! Comienza tirando." << endl;
             anykey();
+
+            cls;
         }
 
         break;
@@ -92,9 +108,7 @@ int main()
     //      
     //  Opcion Estadistícas
     //  Opcion Salir
-    //marie
-     
-    
+
     } while (salir == false);
 
     return 0;
@@ -133,7 +147,7 @@ bool confirmacion(void)
 {
     char conf;
     
-    cout << endl << "\t¿Desea salir del juego?" << endl;
+    cout << endl << "\t¿Querés salir del juego?" << endl;
     cout << "\t   S -- Si | N -- No" << endl;
     cin >> conf;
 
@@ -162,6 +176,8 @@ bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
         cout << j1 << " presioná Enter para tirar tu dado." << endl;
         system("Pause>nul");
 
+        cout << "Tirando dado..." << endl;
+        rollDados();
         dadocomienzo1 = 1 + rand() % 6;
 
         cout << "Salio el: " << dadocomienzo1 << endl << endl;
@@ -169,6 +185,8 @@ bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
         cout << j2 << " presioná Enter para tirar tu dado." << endl;
         system("Pause>nul");
 
+        cout << "Tirando dado..." << endl;
+        rollDados();
         dadocomienzo2 = 1 + rand() % 6;
 
         cout << "Salio el: " << dadocomienzo2 << endl << endl;
@@ -194,4 +212,28 @@ bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
         return false;
     }
 
+}
+
+int tiradaNumeroObjetivo(void)
+{
+    int dado1, dado2, suma;
+
+    dado1 = 1 + rand() % 12;
+    dado2 = 1 + rand() % 12;
+
+    suma = dado1 + dado2;
+
+    return suma;
+
+}
+
+void rollDados(void)
+{
+    int segs = 2;
+
+    while (segs >= 1)
+    {
+        Sleep(500);
+        segs--;
+    }
 }
