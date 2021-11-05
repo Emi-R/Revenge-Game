@@ -4,13 +4,17 @@
 #include <ctime>
 #include <conio.h>
 
+#include "rlutil.h"
+
 using namespace std;
+using namespace rlutil;
 
 void mostrarMenu(void);
 
 void mostrarCreditos(void);
 
 bool confirmacion(void);
+
 
 int main()
 {
@@ -22,7 +26,7 @@ int main()
     int opcion;
     int dadocomienzo1 = 0;
     int dadocomienzo2 = 0;
-    bool salir = false;
+    bool salir = false;   
     bool reroll = false;
     string jugador1;
     string jugador2;
