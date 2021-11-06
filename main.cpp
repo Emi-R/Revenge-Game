@@ -16,7 +16,7 @@ void mostrarCreditos(void);
 
 bool confirmacion(void);
 
-bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int size);
+bool establecerPrimerJugador(char j1[], char j2[]);
 
 int tiradaNumeroObjetivo(void);
 
@@ -64,9 +64,10 @@ int main()
 
         // Se ejecuta funcion de establecer primer jugador
 
-        if (establecerPrimerJugador(jugador1, 50, jugador2, 50) == true)
+        if (establecerPrimerJugador(jugador1, jugador2) == true)
         {
             cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
+
             anykey();
             cls;
 
@@ -78,9 +79,11 @@ int main()
         else
         {
             cout << jugador2 << " sacó el número mas alto! Comienza tirando." << endl;
-            anykey();
 
+            anykey();
             cls;
+
+            cout << "\t-- Ronda número objetivo --" << endl;
         }
 
         break;
@@ -165,13 +168,14 @@ bool confirmacion(void)
         }
 }
 
-bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
+bool establecerPrimerJugador(char j1[], char j2[])
 {
     int dadocomienzo1;
     int dadocomienzo2;
     bool reroll = false;
 
-    do {
+    do
+    {
 
         cout << j1 << " presioná Enter para tirar tu dado." << endl;
         system("Pause>nul");
