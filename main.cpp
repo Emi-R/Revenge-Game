@@ -3,13 +3,12 @@
 #include <string>
 #include <ctime>
 #include <conio.h>
+#include <Windows.h>
+
 #include "rlutil.h"
-#include <windows.h>
-#include<string.h>
-HANDLE h= GetStdHandle(STD_OUTPUT_HANDLE);
-	//SetConsoleTextAttribute(h,7);
 
 using namespace std;
+using namespace rlutil;
 
 void mostrarMenu(void);
 
@@ -17,177 +16,224 @@ void mostrarCreditos(void);
 
 bool confirmacion(void);
 
-void mostrarReglas(void);
+bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int size);
 
+int tiradaNumeroObjetivo(void);
 
-int main() {
+void rollDados(void);
+
+int main()
+{
 
     setlocale(LC_ALL, "Spanish");
 
     srand(time(NULL));
 
-
-
     int opcion;
-    int dadocomienzo1 = 0;
-    int dadocomienzo2 = 0;
-    bool salir = false;
-    bool reroll = false;
-    string jugador1;
-    string jugador2;
+    int numObj;
+    bool salir = false;   
+    char jugador1[50] = {};
+    char jugador2[50] = {};
 
-    do {
+    do
+    {
 
-        // Mostrar menÃº
-        mostrarMenu();
+    // Se ejecuta funcion de mostrar menú
+    mostrarMenu();
 
-        cout << "Bienvenido! SeleccionÃ¡ la opcion deseada: ";
-        cin >> opcion;
+    cout << "Bienvenido! Seleccioná la opcion deseada: ";
+    cin >> opcion;
 
-        switch (opcion) {
-        //Opcion Jugar
-        case 1:
+    switch (opcion)
+    {
+    //Opcion Jugar
+    case 1:
 
-            system("cls");
-            //Pedir Nombres
-            cout << "Jugador uno, ingresÃ¡ tu nombre: ";
-            cin >> jugador1;
+        system("cls");
 
-            cout << "Jugador dos, ingresÃ¡ tu nombre: ";
-            cin >> jugador2;
+        //Pedir Nombres
+        cout << "Jugador uno, ingresá tu nombre: ";
+        cin >> jugador1;
 
-            //Establecer primer jugador
-            system("cls");
+        cout << "Jugador dos, ingresá tu nombre: ";
+        cin >> jugador2;
 
-            cout << "Comienza el juego! Se determinarÃ¡ que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
+        system("cls");
 
-            do {
+        cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
-                cout << jugador1 << " presionÃ¡ Enter para tirar tu dado." << endl << endl;
-                system("Pause>nul");
+        // Se ejecuta funcion de establecer primer jugador
 
-                dadocomienzo1 = 1 + rand() % 6;
+        if (establecerPrimerJugador(jugador1, 50, jugador2, 50) == true)
+        {
+            cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
+            anykey();
+            cls;
 
-                cout << "Salio el: " << dadocomienzo1 << endl;
+            cout << "\t-- Ronda número objetivo --" << endl;
 
-                cout << jugador2 << " presionÃ¡ Enter para tirar tu dado." << endl << endl;
-                system("Pause>nul");
+            numObj = tiradaNumeroObjetivo();
 
-                dadocomienzo2 = 1 + rand() % 6;
+        }
+        else
+        {
+            cout << jugador2 << " sacó el número mas alto! Comienza tirando." << endl;
+            anykey();
 
-                cout << "Salio el: " << dadocomienzo2 << endl;
-                system("Pause>nul");
-
-                if (dadocomienzo1 == dadocomienzo2) {
-                    cout << "Empate. Tiremos de nuevo." << endl;
-                    reroll = true;
-                } else {
-                    reroll = false;
-                }
-
-            } while (reroll == true);
-
-            /*if (dadocomienzo1 > dadocomienzo2)
-            {
-                cout << jugador1
-            }
-                */
-
-
-            break;
-        case 2:
-            break;
-        case 3:
-            mostrarCreditos();
-            break;
-        case 4:
-            mostrarReglas();
-            break;
-        case 0:
-            salir = confirmacion();
-        default:
-            break;
+            cls;
         }
 
-        //      Tirada Jugador 1
-        //          Lanzar 2 dados 12 caras
-        //          Calcular numero objetivo
-        //          Lanzar dados stock (6 caras)
-        //          Elegir suma seleccionada
-        //          Tirada Exitosa
-        //      Tirada Jugador 2
-        //          Lanzar dados stock (6 caras)
-        //
-        //
-        //
-        //  Opcion EstadistÃ­cas
-        //  Opcion Salir
-        //marie
-
+        break;
+    case 2:
+        break;
+    case 3:
+        mostrarCreditos();
+        break;
+    case 0:
+        salir = confirmacion();
+    default:
+        break;
+    }
+    
+    //      Tirada primer jugador
+    //          Lanzar 2 dados 12 caras
+    //          Calcular numero objetivo
+    //          Lanzar dados stock (6 caras)
+    //          Elegir suma seleccionada
+    //          Tirada Exitosa
+    //      Tirada segundo jugador
+    //          Lanzar dados stock (6 caras)
+    //      
+    //      
+    //      
+    //  Opcion Estadistícas
+    //  Opcion Salir
 
     } while (salir == false);
 
     return 0;
 }
 
-void mostrarMenu(void) {
+void mostrarMenu(void)
+{
     system("cls");
 
     cout << "\t- Revenge -" << endl;
     cout << "---------------------------" << endl;
     cout << "1 - Jugar" << endl;
-    cout << "2 - EstadÃ­sticas" << endl;
-    cout << "3 - CrÃ©ditos" << endl;
-    cout << "4 - Reglas del Juego" << endl;
+    cout << "2 - Estadísticas" << endl;
+    cout << "3 - Créditos" << endl;
     cout << "---------------------------" << endl;
     cout << "0 - Salir" << endl << endl;
 }
 
-void mostrarCreditos(void) {
+void mostrarCreditos(void)
+{
     system("cls");
 
-    cout << "\t\t-- CrÃ©ditos --" << endl << endl;
-    cout << "                 Desarrollado por " << endl;
-    cout << endl;
-   SetConsoleTextAttribute(h,9);
-cout << ".|'''.|  '||'  |'  '||' '|' '|.   '|' '||''''|  |''||''| "<< endl;
-cout << "||..  '   || .'      || |    |'|   |   ||  .       ||   "<< endl;
-cout << " ''|||.   ||'|.       ||     | '|. |   ||''|       ||  "<< endl;
-cout <<".    '||  ||  ||      ||     |   |||   ||          ||  "<< endl;
-cout <<"|'....|' .||.  ||.   .||.   .|.   '|  .||.....|   .||. "<< endl;
-SetConsoleTextAttribute(h,7);
-cout << endl;
-    cout << "    para la Universidad TecnolÃ³gica Nacional (FRGP)" << endl << endl;
+    cout << "\t\t-- Créditos --" << endl << endl;
+    cout << "            Desarollado por SkyNet" << endl;
+    cout << "    para la Universidad Tecnológica Nacional (FRGP)" << endl << endl;
     cout << "Marianella Gottig - Legajo: 25508" <<endl;
     cout << "Maria Jose Illanes Saldivia - Legajo: 24512" << endl;
-    cout << "Emiliano RamÃ­rez - Legajo: 25583" << endl << endl;
+    cout << "Emiliano Ramírez - Legajo: 25583" << endl << endl;
 
-    cout << "PresionÃ¡ cualquier tecla para volver al menÃº principal." << endl;
+    cout << "Presioná cualquier tecla para volver al menú principal." << endl;
     system("Pause>nul");
 
-
 }
 
-void mostrarReglas(void){
-    system("cls");
-system("start https://docs.google.com/document/d/1t0_3MMSeo4Gxg8dZQyGgcc5cwDqj9uAHlAFINEYmoFk/edit");
-
-}
-
-bool confirmacion(void) {
+bool confirmacion(void)
+{
     char conf;
-
-    cout << endl << "\tÂ¿Desea salir del juego?" << endl;
+    
+    cout << endl << "\t¿Querés salir del juego?" << endl;
     cout << "\t   S -- Si | N -- No" << endl;
     cin >> conf;
 
     conf = toupper(conf);
 
-    if (conf == 'S') {
+    if (conf == 'S')
+    {
         return true;
-    } else if(conf == 'N')
+    }
+    else
+        if(conf == 'N')
+    
+        {
+            return false;
+        }
+}
 
+bool establecerPrimerJugador(char j1[], int sizej1, char j2[], int sizej2)
+{
+    int dadocomienzo1;
+    int dadocomienzo2;
+    bool reroll = false;
+
+    do {
+
+        cout << j1 << " presioná Enter para tirar tu dado." << endl;
+        system("Pause>nul");
+
+        cout << "Tirando dado..." << endl;
+        rollDados();
+        dadocomienzo1 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo1 << endl << endl;
+
+        cout << j2 << " presioná Enter para tirar tu dado." << endl;
+        system("Pause>nul");
+
+        cout << "Tirando dado..." << endl;
+        rollDados();
+        dadocomienzo2 = 1 + rand() % 6;
+
+        cout << "Salio el: " << dadocomienzo2 << endl << endl;
+
+        if (dadocomienzo1 == dadocomienzo2)
+        {
+            cout << "Empate. Tiremos de nuevo." << endl;
+            reroll = true;
+        }
+        else
+        {
+            reroll = false;
+        }
+
+    } while (reroll == true);
+
+    if (dadocomienzo1 > dadocomienzo2)
+    {
+        return true;
+    }
+    else
     {
         return false;
+    }
+
+}
+
+int tiradaNumeroObjetivo(void)
+{
+    int dado1, dado2, suma;
+
+    dado1 = 1 + rand() % 12;
+    dado2 = 1 + rand() % 12;
+
+    suma = dado1 + dado2;
+
+    return suma;
+
+}
+
+void rollDados(void)
+{
+    int segs = 2;
+
+    while (segs >= 1)
+    {
+        Sleep(500);
+        segs--;
     }
 }
