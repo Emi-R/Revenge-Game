@@ -20,6 +20,8 @@ bool establecerPrimerJugador(char j1[], char j2[]);
 
 int tiradaNumeroObjetivo(void);
 
+void tiradaJugador(int v[], int dadosStock);
+
 void rollDados(void);
 
 int main()
@@ -34,7 +36,12 @@ int main()
     bool salir = false;   
     char jugador1[50] = {};
     char jugador2[50] = {};
-
+    int vTiradaJ1[6] = {};
+    int vTiradaJ2[6] = {};
+    int dadosStockJ1 = 6;
+    int dadosStockJ2 = 6;
+    int sumaseleccionada = 0;
+    int dadoelegido;
     do
     {
 
@@ -60,7 +67,8 @@ int main()
 
         system("cls");
 
-        cout << "Comienza el juego! Se determinará que jugador tira primero. El jugador que tire el dado mas alto empieza tirando." << endl << endl;
+        cout << "Comienza el juego! Se determinará que jugador tira primero." << endl;
+        cout << "El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
         // Se ejecuta funcion de establecer primer jugador
 
@@ -69,21 +77,68 @@ int main()
             cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
 
             anykey();
-            cls;
+            system("cls");
 
-            cout << "\t-- Ronda número objetivo --" << endl;
+            for (int i = 1; i <= 5; i++)
+            {
+                cout << "\t---- Ronda: " << i << " | Turno de: " << jugador1 << " ----" << endl;
+                cout << jugador1 << " presioná Enter para tirar los dados." << endl;
+                cout << "El número que salga sera el número objetivo." << endl;
 
-            numObj = tiradaNumeroObjetivo();
+                anykey();
+                cout << "Tirando dados..." << endl << endl;
+                rollDados();
+
+                numObj = tiradaNumeroObjetivo();
+                cout << "-----------------" << endl;
+                cout << "El numero objetivo es: " << numObj << endl << endl;
+
+                cout << jugador1 << "presioná Enter para tirar los dados." << endl;
+                anykey();
+
+                cout << endl << "Tirando dados..." << endl;;
+                tiradaJugador(vTiradaJ1, dadosStockJ1);
+
+                cout << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
+
+                cout << endl << "Elegi la posicion del dado: " << endl;
+                cin >> dadoelegido;
+
+                
+                while (sumaseleccionada != numObj || dadoelegido != 0)
+                {
+
+                    sumaseleccionada += vTiradaJ1[dadoelegido - 1];
+                    vTiradaJ1[dadoelegido - 1] = 0;
+
+                    cout << endl << "Elegi la posicion del dado: " << endl;
+                    cin >> dadoelegido;
+
+                    sumaseleccionada += vTiradaJ1[dadoelegido - 1];
+                    vTiradaJ1[dadoelegido - 1] = 0;
+                    cout << endl << "Suma de los dados seleccionados: " << sumaseleccionada << endl;
+                } 
+
+                    cout << endl << "Suma selec con exito" << endl;
+                    anykey();
+
+
+
+                
+                
+
+
+
+
+
+
+
+            }
 
         }
         else
         {
-            cout << jugador2 << " sacó el número mas alto! Comienza tirando." << endl;
-
-            anykey();
-            cls;
-
-            cout << "\t-- Ronda número objetivo --" << endl;
+            
         }
 
         break;
@@ -180,7 +235,7 @@ bool establecerPrimerJugador(char j1[], char j2[])
         cout << j1 << " presioná Enter para tirar tu dado." << endl;
         system("Pause>nul");
 
-        cout << "Tirando dado..." << endl;
+        cout << "Tirando dados..." << endl << endl;
         rollDados();
         dadocomienzo1 = 1 + rand() % 6;
 
@@ -188,8 +243,8 @@ bool establecerPrimerJugador(char j1[], char j2[])
 
         cout << j2 << " presioná Enter para tirar tu dado." << endl;
         system("Pause>nul");
-
-        cout << "Tirando dado..." << endl;
+        
+        cout << "Tirando dados..." << endl << endl;
         rollDados();
         dadocomienzo2 = 1 + rand() % 6;
 
@@ -227,6 +282,10 @@ int tiradaNumeroObjetivo(void)
 
     suma = dado1 + dado2;
 
+    rollDados();
+    cout << "Dado 1: " << dado1 << endl;
+    rollDados();
+    cout << "Dado 2: " << dado2 << endl;
     return suma;
 
 }
@@ -234,10 +293,30 @@ int tiradaNumeroObjetivo(void)
 void rollDados(void)
 {
     int segs = 2;
-
     while (segs >= 1)
     {
         Sleep(500);
         segs--;
+    }
+}
+
+void tiradaJugador(int v[], int dadosStock)
+{
+    for (int i = 0; i < dadosStock; i++)
+    {
+        v[i] = 1 + rand() % 6;
+    }
+
+    for (int i = 0; i < dadosStock; i++)
+    {
+        rollDados();
+        if (i == 0)
+        {
+            cout << "\t" << v[i];
+        }
+        else
+        {
+            cout << " - " << v[i];
+        }
     }
 }

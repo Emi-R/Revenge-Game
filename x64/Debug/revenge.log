@@ -1,7 +1,5 @@
 ﻿  main.cpp
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\rlutil.h(577,32): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(30,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(71,13): warning C4551: function call missing argument list
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(83,13): warning C4551: function call missing argument list
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(166): warning C4715: 'confirmacion': not all control paths return a value
-  revenge.vcxproj -> C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\x64\Debug\revenge.exe
+C:\Users\Myxo\Documents\GitHub\Revenge\rlutil.h(577,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Myxo\Documents\GitHub\Revenge\main.cpp(32,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Myxo\Documents\GitHub\Revenge\main.cpp(224): warning C4715: 'confirmacion': no todas las rutas de acceso de control devuelven un valor
+  revenge.vcxproj -> C:\Users\Myxo\Documents\GitHub\Revenge\x64\Debug\revenge.exe
