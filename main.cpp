@@ -48,6 +48,7 @@ int main()
 	bool BPenalizacion = 0;
 	bool primerJugadorJ1 = false;
 	bool finalizarPartida = false;
+	setBackgroundColor(BLACK);
 
 	do
 	{
@@ -62,7 +63,7 @@ int main()
 		case 1: // Opcion Jugar
 
 			system("cls");
-
+			
 			// Pedir Nombres
 			cout << "Jugador uno, ingresá tu nombre: ";
 			cin >> jugador1;
@@ -155,14 +156,14 @@ int main()
 					contadorDadosElegidos = 0;
 
 					system("cls");
-
+					setColor(WHITE);
 					cout << "\t---- Ronda: " << i << " ----" << endl;
 					cout << "\t---- Turno de: " << jugadorActual << " ----" << endl;
 					cout << "\t---- Dados Stock " << jugadorActual << ": " << dadosStockJugadorActual << " ----" << endl;
 					cout << "\t---- Dados Stock " << jugadorInactivo << ": " << dadosStockJugadorInactivo << " ----" << endl;
 					cout << "\t---- Puntaje " << jugadorInicial << ": " << puntajeTotalJI << " ----" << endl;
 					cout << "\t---- Puntaje " << jugadorSecundario << ": " << puntajeTotalJS << " ----" << endl << endl;
-
+					setColor(LIGHTBLUE);
 					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
 					cout << "El número que salga sera el número objetivo." << endl;
 
@@ -179,10 +180,11 @@ int main()
 					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
 					anykey();
 
-					cout << endl << "Tirando dados..." << endl;
-
+					cout << endl << "\t\t\tTirando dados..." << endl << endl;
+					setColor(BROWN);
 					// Funcion que simula la tirada de los dados stock
 					tiradaJugador(vTiradaJugadorActual, dadosStockJugadorActual);
+					setColor(LIGHTBLUE);
 
 					cout << endl << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
 
@@ -211,7 +213,9 @@ int main()
 							}
 							else
 							{
+								setColor(RED);
 								cout << "El dado elegido no se encuentra en sus dados stock. Volve a intentarlo! " << endl;
+								setColor(LIGHTBLUE);
 							}
 
 					} while ((sumaseleccionada != numObj) && (dadoelegido != 0));
@@ -222,7 +226,9 @@ int main()
 
 					if ((sumaseleccionada == numObj) && (contadorDadosElegidos == dadosStockJugadorActual))
 					{
-						cout << jugadorActual << " ganó la partida! Su tirada ha sido exitosa y se quedó sin dados. " << endl << endl;
+						setColor(LIGHTGREEN);
+						cout << jugadorActual << " ganó la partida!! Su tirada ha sido exitosa y se quedó sin dados. " << endl << endl;
+						setColor(LIGHTBLUE);
 
 						if (x == 1)
 						{
@@ -241,28 +247,35 @@ int main()
 					else
 						if (sumaseleccionada == numObj)
 						{
+							setColor(LIGHTGREEN);
 							cout << endl << "Suma selecccionada con exito. Su tirada ha sido una tirada exitosa." << endl << endl;
+							setColor(WHITE);
 							cout << "Suma objetivo: " << numObj << endl;
 							// Funcion que muestra los dados elegidos en esa ronda
 							mostrarDadosElegidos(vTiradaDadosSeleccionados, contadorDadosElegidos);
 
 							cout << endl << "Puntaje de la ronda: " << puntajePorRonda << endl;
 							cout << "Dados enviados a " << jugadorInactivo << ": " << contadorDadosElegidos << endl << endl;
+							setColor(LIGHTBLUE);
 							cout << "Presioná Enter para continuar.";
 							anykey();
 						}
 						else
 						{
+							setColor(RED);
 							cout << "No ha logrado una tirada exitosa." << endl;
 
 							if (dadosStockJugadorInactivo > 1)
 							{
 								cout << jugadorActual << " sufre penalización. " << jugadorInactivo << " le envía un dado." << endl;
+								setColor(LIGHTBLUE);
 								BPenalizacion = 1;
 							}
 							else
 							{
-								cout << jugadorActual << " no sufre penalización ya que " << jugadorInactivo << " tiene 1 solo dado stock" << endl;
+								setColor(LIGHTCYAN);
+								cout << "Safó " << jugadorActual << ". No sufre penalización ya que " << jugadorInactivo << " tiene 1 solo dado stock" << endl;
+								setColor(LIGHTBLUE);
 							}
 							anykey();
 						}
@@ -299,11 +312,11 @@ int main()
 				MayorPuntaje = puntajeTotalJS;
 				memcpy(JugadorMayorPuntaje, jugadorSecundario, 50);
 			}
-
-			cout << " \t--- Partida finalizada!! --- " << endl;
+			setColor(WHITE);
+			cout << endl << " \t--- Partida finalizada!! --- " << endl;
 			if (puntajeTotalJI > puntajeTotalJS)
 			{
-
+				setColor(LIGHTGREEN);
 				cout << "\tEl ganador es: " << jugadorInicial << endl;
 			}
 			else
@@ -315,7 +328,7 @@ int main()
 				{
 					cout << "\tEl ganador es: " << jugadorInicial << endl;
 				}
-
+			setColor(WHITE);
 			cout << endl << "\t-----------------" << endl << endl;
 			cout << "\tPuntuaciones finales: " << endl << endl;
 
@@ -330,8 +343,8 @@ int main()
 				cout << "\t" << jugador1 << ": " << puntajeTotalJS << endl;
 				cout << "\t" << jugador2 << ": " << puntajeTotalJI << endl;
 			}
-
-			cout << "Presioná cualquier tecla para volver al menú principal." << endl;
+			setColor(LIGHTBLUE);
+			cout << endl << "Presioná cualquier tecla para volver al menú principal." << endl;
 			anykey();
 
 			break;
