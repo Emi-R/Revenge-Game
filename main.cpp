@@ -4,319 +4,367 @@
 #include <ctime>
 #include <conio.h>
 #include <Windows.h>
+#include <clocale> 
 
+#include "funciones.h"
 #include "rlutil.h"
 
 using namespace std;
 using namespace rlutil;
 
-void mostrarMenu(void);
-
-void mostrarCreditos(void);
-
-bool confirmacion(void);
-
-bool establecerPrimerJugador(char j1[], char j2[]);
-
-int tiradaNumeroObjetivo(void);
-
-void tiradaJugador(int v[], int dadosStock);
-
-void rollDados(void);
+ //funcion que recibe el total de contador de dados stock y el total de la suma seleccionada, y el num de x
 
 int main()
 {
+	setlocale(LC_ALL, "Spanish");
+	srand(time(NULL));
 
-    setlocale(LC_ALL, "Spanish");
+	// Variables de menu
+	int opcion;
+	bool salir = false;
 
-    srand(time(NULL));
+	int MayorPuntaje = 0;
+	char JugadorMayorPuntaje[50] = {};
 
-    int opcion;
-    int numObj;
-    bool salir = false;   
-    char jugador1[50] = {};
-    char jugador2[50] = {};
-    int vTiradaJ1[6] = {};
-    int vTiradaJ2[6] = {};
-    int dadosStockJ1 = 6;
-    int dadosStockJ2 = 6;
-    int sumaseleccionada = 0;
-    int dadoelegido;
-    do
-    {
+	int puntajeTotalJI;
+	int puntajeTotalJS;
 
-    // Se ejecuta funcion de mostrar menú
-    mostrarMenu();
+	char jugador1[50] = {};
+	char jugador2[50] = {};
 
-    cout << "Bienvenido! Seleccioná la opcion deseada: ";
-    cin >> opcion;
+	char jugadorInicial[52] = {};
+	char jugadorSecundario[52] = {};
 
-    switch (opcion)
-    {
-    //Opcion Jugar
-    case 1:
+	int dadosStockJI;
+	int dadosStockJS;
 
-        system("cls");
+	int sumaseleccionada = 0;
+	int numObj;
+	int dadoelegido;
+	int contadorDadosElegidos;
 
-        //Pedir Nombres
-        cout << "Jugador uno, ingresá tu nombre: ";
-        cin >> jugador1;
+	int puntajeTotalGanador = 0;
 
-        cout << "Jugador dos, ingresá tu nombre: ";
-        cin >> jugador2;
+	bool BPenalizacion = 0;
+	bool primerJugadorJ1 = false;
+	bool finalizarPartida = false;
 
-        system("cls");
+	do
+	{
+		// Funcion para mostrar menú
+		mostrarMenu();
+		locate(19, 14);
+		cout << "Bienvenido! Seleccioná la opcion deseada: ";
+		cin >> opcion;
 
-        cout << "Comienza el juego! Se determinará que jugador tira primero." << endl;
-        cout << "El jugador que tire el dado mas alto empieza tirando." << endl << endl;
+		switch (opcion)
+		{
+		case 1: // Opcion Jugar
 
-        // Se ejecuta funcion de establecer primer jugador
+			system("cls");
 
-        if (establecerPrimerJugador(jugador1, jugador2) == true)
-        {
-            cout << jugador1 << " sacó el número mas alto! Comienza tirando." << endl;
+			// Pedir Nombres
+			cout << "Jugador uno, ingresá tu nombre: ";
+			cin >> jugador1;
 
-            anykey();
-            system("cls");
+			cout << "Jugador dos, ingresá tu nombre: ";
+			cin >> jugador2;
 
-            for (int i = 1; i <= 5; i++)
-            {
-                cout << "\t---- Ronda: " << i << " | Turno de: " << jugador1 << " ----" << endl;
-                cout << jugador1 << " presioná Enter para tirar los dados." << endl;
-                cout << "El número que salga sera el número objetivo." << endl;
+			system("cls");
 
-                anykey();
-                cout << "Tirando dados..." << endl << endl;
-                rollDados();
+			cout << "Comienza el juego! Se determinará que jugador tira primero." << endl;
+			cout << "El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
-                numObj = tiradaNumeroObjetivo();
-                cout << "-----------------" << endl;
-                cout << "El numero objetivo es: " << numObj << endl << endl;
+			// Funcion de establecer primer jugador
 
-                cout << jugador1 << "presioná Enter para tirar los dados." << endl;
-                anykey();
+			primerJugadorJ1 = establecerPrimerJugador(jugador1, jugador2);
 
-                cout << endl << "Tirando dados..." << endl;;
-                tiradaJugador(vTiradaJ1, dadosStockJ1);
+			if (primerJugadorJ1 == true)
 
-                cout << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
+			{
+				memcpy(jugadorInicial, jugador1, 50);
+				memcpy(jugadorSecundario, jugador2, 50);
+			}
+			else
+			{
+				memcpy(jugadorInicial, jugador2, 50);
+				memcpy(jugadorSecundario, jugador1, 50);
+			}
 
-                cout << endl << "Elegi la posicion del dado: " << endl;
-                cin >> dadoelegido;
+			cout << jugadorInicial << " sacó el número mas alto! Comienza tirando." << endl;
 
-                
-                while (sumaseleccionada != numObj || dadoelegido != 0)
-                {
+			anykey();
+			system("cls");
 
-                    sumaseleccionada += vTiradaJ1[dadoelegido - 1];
-                    vTiradaJ1[dadoelegido - 1] = 0;
+			puntajeTotalJI = 0;
+			puntajeTotalJS = 0;
 
-                    cout << endl << "Elegi la posicion del dado: " << endl;
-                    cin >> dadoelegido;
+			dadosStockJI = 6;
+			dadosStockJS = 6;
 
-                    sumaseleccionada += vTiradaJ1[dadoelegido - 1];
-                    vTiradaJ1[dadoelegido - 1] = 0;
-                    cout << endl << "Suma de los dados seleccionados: " << sumaseleccionada << endl;
-                } 
+			contadorDadosElegidos = 0;
+			BPenalizacion = 0;
 
-                    cout << endl << "Suma selec con exito" << endl;
-                    anykey();
+			int dadosStockJugadorActual;
+			int dadosStockJugadorInactivo;
 
+			finalizarPartida = false;
 
+			//Empiezan las rondas
+			for (int i = 1; i <= 5; i++)
+			{
 
-                
-                
+				for (int x = 1; x <= 2; x++)
+				{
 
-
-
-
-
-
-
-            }
-
-        }
-        else
-        {
-            
-        }
-
-        break;
-    case 2:
-        break;
-    case 3:
-        mostrarCreditos();
-        break;
-    case 0:
-        salir = confirmacion();
-    default:
-        break;
-    }
-    
-    //      Tirada primer jugador
-    //          Lanzar 2 dados 12 caras
-    //          Calcular numero objetivo
-    //          Lanzar dados stock (6 caras)
-    //          Elegir suma seleccionada
-    //          Tirada Exitosa
-    //      Tirada segundo jugador
-    //          Lanzar dados stock (6 caras)
-    //      
-    //      
-    //      
-    //  Opcion Estadistícas
-    //  Opcion Salir
-
-    } while (salir == false);
-
-    return 0;
-}
-
-void mostrarMenu(void)
-{
-    system("cls");
-
-    cout << "\t- Revenge -" << endl;
-    cout << "---------------------------" << endl;
-    cout << "1 - Jugar" << endl;
-    cout << "2 - Estadísticas" << endl;
-    cout << "3 - Créditos" << endl;
-    cout << "---------------------------" << endl;
-    cout << "0 - Salir" << endl << endl;
-}
-
-void mostrarCreditos(void)
-{
-    system("cls");
-
-    cout << "\t\t-- Créditos --" << endl << endl;
-    cout << "            Desarollado por SkyNet" << endl;
-    cout << "    para la Universidad Tecnológica Nacional (FRGP)" << endl << endl;
-    cout << "Marianella Gottig - Legajo: 25508" <<endl;
-    cout << "Maria Jose Illanes Saldivia - Legajo: 24512" << endl;
-    cout << "Emiliano Ramírez - Legajo: 25583" << endl << endl;
-
-    cout << "Presioná cualquier tecla para volver al menú principal." << endl;
-    system("Pause>nul");
-
-}
-
-bool confirmacion(void)
-{
-    char conf;
-    
-    cout << endl << "\t¿Querés salir del juego?" << endl;
-    cout << "\t   S -- Si | N -- No" << endl;
-    cin >> conf;
-
-    conf = toupper(conf);
-
-    if (conf == 'S')
-    {
-        return true;
-    }
-    else
-        if(conf == 'N')
-    
-        {
-            return false;
-        }
-}
-
-bool establecerPrimerJugador(char j1[], char j2[])
-{
-    int dadocomienzo1;
-    int dadocomienzo2;
-    bool reroll = false;
-
-    do
-    {
-
-        cout << j1 << " presioná Enter para tirar tu dado." << endl;
-        system("Pause>nul");
-
-        cout << "Tirando dados..." << endl << endl;
-        rollDados();
-        dadocomienzo1 = 1 + rand() % 6;
-
-        cout << "Salio el: " << dadocomienzo1 << endl << endl;
-
-        cout << j2 << " presioná Enter para tirar tu dado." << endl;
-        system("Pause>nul");
-        
-        cout << "Tirando dados..." << endl << endl;
-        rollDados();
-        dadocomienzo2 = 1 + rand() % 6;
-
-        cout << "Salio el: " << dadocomienzo2 << endl << endl;
-
-        if (dadocomienzo1 == dadocomienzo2)
-        {
-            cout << "Empate. Tiremos de nuevo." << endl;
-            reroll = true;
-        }
-        else
-        {
-            reroll = false;
-        }
-
-    } while (reroll == true);
-
-    if (dadocomienzo1 > dadocomienzo2)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
-}
-
-int tiradaNumeroObjetivo(void)
-{
-    int dado1, dado2, suma;
-
-    dado1 = 1 + rand() % 12;
-    dado2 = 1 + rand() % 12;
-
-    suma = dado1 + dado2;
-
-    rollDados();
-    cout << "Dado 1: " << dado1 << endl;
-    rollDados();
-    cout << "Dado 2: " << dado2 << endl;
-    return suma;
-
-}
-
-void rollDados(void)
-{
-    int segs = 2;
-    while (segs >= 1)
-    {
-        Sleep(500);
-        segs--;
-    }
-}
-
-void tiradaJugador(int v[], int dadosStock)
-{
-    for (int i = 0; i < dadosStock; i++)
-    {
-        v[i] = 1 + rand() % 6;
-    }
-
-    for (int i = 0; i < dadosStock; i++)
-    {
-        rollDados();
-        if (i == 0)
-        {
-            cout << "\t" << v[i];
-        }
-        else
-        {
-            cout << " - " << v[i];
-        }
-    }
+					sumaseleccionada = 0;
+
+					int vTiradaJugadorActual[12] = {};
+					int vTiradaDadosSeleccionados[12] = {};
+					char jugadorActual[50] = {};
+					char jugadorInactivo[50] = {};
+					int puntajePorRonda = 0;
+
+					if (i == 1 && x == 1)
+					{
+						contadorDadosElegidos = 0;
+					}
+
+					// Cambia por cada ronda el "jugador actual" y el "jugador inactivo". Esto es para mostrar a quien se envia cada dado despues de cada ronda.
+					if (x == 1)
+					{
+						memcpy(jugadorActual, jugadorInicial, 50); //asigna el nombre del jugador actual a jugadorActual
+						memcpy(jugadorInactivo, jugadorSecundario, 50);
+						dadosStockJugadorActual = dadosStockJI + contadorDadosElegidos; //Le da al stock del jugador actual el valor de dados stock jugadorInicial
+						dadosStockJugadorInactivo = dadosStockJS;
+					}
+					else
+					{
+						memcpy(jugadorActual, jugadorSecundario, 50);
+						memcpy(jugadorInactivo, jugadorInicial, 50);
+						dadosStockJugadorActual = dadosStockJS + contadorDadosElegidos;
+						dadosStockJugadorInactivo = dadosStockJI;
+					}
+
+					if (BPenalizacion == 1)
+					{
+						dadosStockJugadorActual--;
+						BPenalizacion = 0;
+					}
+
+					contadorDadosElegidos = 0;
+
+					system("cls");
+
+					cout << "\t---- Ronda: " << i << " ----" << endl;
+					cout << "\t---- Turno de: " << jugadorActual << " ----" << endl;
+					cout << "\t---- Dados Stock " << jugadorActual << ": " << dadosStockJugadorActual << " ----" << endl;
+					cout << "\t---- Dados Stock " << jugadorInactivo << ": " << dadosStockJugadorInactivo << " ----" << endl;
+					cout << "\t---- Puntaje " << jugadorInicial << ": " << puntajeTotalJI << " ----" << endl;
+					cout << "\t---- Puntaje " << jugadorSecundario << ": " << puntajeTotalJS << " ----" << endl << endl;
+
+					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
+					cout << "El número que salga sera el número objetivo." << endl;
+
+					anykey();
+					cout << "Tirando dados..." << endl << endl;
+					rollDados();
+
+					//Funcion para calcular el numero objetivo
+					numObj = tiradaNumeroObjetivo();
+
+					cout << "\t-----------------" << endl;
+					cout << "\tNumero objetivo: " << numObj << endl << endl;
+
+					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
+					anykey();
+
+					cout << endl << "Tirando dados..." << endl;
+
+					// Funcion que simula la tirada de los dados stock
+					tiradaJugador(vTiradaJugadorActual, dadosStockJugadorActual);
+
+					cout << endl << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
+
+					do
+					{
+						cout << endl << "Elegi la posicion del dado o ingresá 0 para pasar el turno: ";
+						cin >> dadoelegido;
+
+						if (dadoelegido != 0 && dadoelegido <= dadosStockJugadorActual)
+						{
+							vTiradaDadosSeleccionados[contadorDadosElegidos] = vTiradaJugadorActual[dadoelegido - 1];
+							contadorDadosElegidos++;
+							sumaseleccionada += vTiradaJugadorActual[dadoelegido - 1];
+
+							vTiradaJugadorActual[dadoelegido - 1] = 0;
+
+							cout << "Suma de los dados seleccionados: " << sumaseleccionada;
+
+							cout << endl;
+						}
+						else
+							if (dadoelegido == 0)
+							{
+								sumaseleccionada = 0;
+								contadorDadosElegidos = 0;
+							}
+							else
+							{
+								cout << "El dado elegido no se encuentra en sus dados stock. Volve a intentarlo! " << endl;
+							}
+
+					} while ((sumaseleccionada != numObj) && (dadoelegido != 0));
+
+
+					//Funcion para calcular el puntaje de cada ronda
+					puntajePorRonda = puntajeRonda(contadorDadosElegidos, sumaseleccionada);
+
+					if ((sumaseleccionada == numObj) && (contadorDadosElegidos == dadosStockJugadorActual))
+					{
+						cout << jugadorActual << " ganó la partida! Su tirada ha sido exitosa y se quedó sin dados. " << endl << endl;
+
+						if (x == 1)
+						{
+							puntajeTotalJI = puntajeTotalJI + puntajePorRonda + 10000;
+						}
+						else
+						{
+							puntajeTotalJS = puntajeTotalJS + puntajePorRonda + 10000;
+						}
+
+						x = 2;
+						i = 5;
+						finalizarPartida = true;
+
+					}
+					else
+						if (sumaseleccionada == numObj)
+						{
+							cout << endl << "Suma selecccionada con exito. Su tirada ha sido una tirada exitosa." << endl << endl;
+							cout << "Suma objetivo: " << numObj << endl;
+							// Funcion que muestra los dados elegidos en esa ronda
+							mostrarDadosElegidos(vTiradaDadosSeleccionados, contadorDadosElegidos);
+
+							cout << endl << "Puntaje de la ronda: " << puntajePorRonda << endl;
+							cout << "Dados enviados a " << jugadorInactivo << ": " << contadorDadosElegidos << endl << endl;
+							cout << "Presioná Enter para continuar.";
+							anykey();
+						}
+						else
+						{
+							cout << "No ha logrado una tirada exitosa." << endl;
+
+							if (dadosStockJugadorInactivo > 1)
+							{
+								cout << jugadorActual << " sufre penalización. " << jugadorInactivo << " le envía un dado." << endl;
+								BPenalizacion = 1;
+							}
+							else
+							{
+								cout << jugadorActual << " no sufre penalización ya que " << jugadorInactivo << " tiene 1 solo dado stock" << endl;
+							}
+							anykey();
+						}
+
+					// Funcion que calcula los dados stock, restando los dados elegidos a la cantidad actual de dados stock
+					dadosStockJugadorActual = TotalDadosStock(dadosStockJugadorActual, contadorDadosElegidos);
+
+					if (BPenalizacion == 1 && i != 5)
+					{
+						dadosStockJugadorActual++;
+					}
+
+					if (x == 1 && finalizarPartida == false)
+					{
+						dadosStockJI = dadosStockJugadorActual;
+						puntajeTotalJI = puntajeTotalJI += puntajePorRonda;
+					}
+					else
+						if (finalizarPartida == false)
+						{
+							dadosStockJS = dadosStockJugadorActual;
+							puntajeTotalJS = puntajeTotalJS += puntajePorRonda;
+						}
+				}
+			}
+
+			if (puntajeTotalJI > MayorPuntaje)
+			{
+				MayorPuntaje = puntajeTotalJI;
+				memcpy(JugadorMayorPuntaje, jugadorInicial, 50);
+			}
+			if (puntajeTotalJS > MayorPuntaje)
+			{
+				MayorPuntaje = puntajeTotalJS;
+				memcpy(JugadorMayorPuntaje, jugadorSecundario, 50);
+			}
+
+			cout << " \t--- Partida finalizada!! --- " << endl;
+			if (puntajeTotalJI > puntajeTotalJS)
+			{
+
+				cout << "\tEl ganador es: " << jugadorInicial << endl;
+			}
+			else
+				if (puntajeTotalJI < puntajeTotalJS)
+				{
+					cout << "\tEl ganador es: " << jugadorSecundario << endl;
+				}
+				else
+				{
+					cout << "\tEl ganador es: " << jugadorInicial << endl;
+				}
+
+			cout << endl << "\t-----------------" << endl << endl;
+			cout << "\tPuntuaciones finales: " << endl << endl;
+
+			if (primerJugadorJ1 == true)
+
+			{
+				cout << "\t"<< jugador1 << ": " << puntajeTotalJI << endl;
+				cout << "\t" << jugador2 << ": " << puntajeTotalJS << endl;
+			}
+			else
+			{
+				cout << "\t" << jugador1 << ": " << puntajeTotalJS << endl;
+				cout << "\t" << jugador2 << ": " << puntajeTotalJI << endl;
+			}
+
+			cout << "Presioná cualquier tecla para volver al menú principal." << endl;
+			anykey();
+
+			break;
+		case 2: // Opción Estadísticas
+			system("cls");
+
+			mostrarMembrete();
+
+			locate(28, 7);
+			cout << "---- Estadísticas ----" << endl << endl;
+			locate(25, 9);
+			cout << "      Jugador: " << JugadorMayorPuntaje << endl << endl;
+			locate(25, 10);
+			cout << "      Mayor Puntaje: " << MayorPuntaje << endl;
+			locate(27, 12);
+			cout << "Presioná cualquier tecla" << endl;
+			locate(27, 13);
+			cout << "para volver al menú principal." << endl;
+			system("Pause>nul");
+			break;
+		case 3:// Opción Créditos
+			mostrarCreditos();
+			break;
+		case 4:// Opción Mostrar Reglas
+			mostrarReglas();
+			break;
+		case 0:
+			salir = confirmacion();
+		default:
+			break;
+		}
+
+	} while (salir == false);
+
+	return 0;
 }
