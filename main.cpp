@@ -1,5 +1,4 @@
 #include <iostream>
-#include <istream>
 #include <string>
 #include <ctime>
 #include <conio.h>
@@ -12,7 +11,7 @@
 using namespace std;
 using namespace rlutil;
 
- //funcion que recibe el total de contador de dados stock y el total de la suma seleccionada, y el num de x
+//funcion que recibe el total de contador de dados stock y el total de la suma seleccionada, y el num de x
 
 int main()
 {
@@ -48,13 +47,20 @@ int main()
 	bool BPenalizacion = 0;
 	bool primerJugadorJ1 = false;
 	bool finalizarPartida = false;
+
+	bool modoAutomatico = false;
+	char modo;
+	bool validacion = false;
+
+	int contadorImpares;
+	bool bonificacion = false;
 	setBackgroundColor(BLACK);
 
 	do
 	{
 		// Funcion para mostrar menú
 		mostrarMenu();
-		locate(19, 14);
+		locate(22, 14);
 		cout << "Bienvenido! Seleccioná la opcion deseada: ";
 		cin >> opcion;
 
@@ -63,7 +69,7 @@ int main()
 		case 1: // Opcion Jugar
 
 			system("cls");
-			
+
 			// Pedir Nombres
 			cout << "Jugador uno, ingresá tu nombre: ";
 			cin >> jugador1;
@@ -71,14 +77,52 @@ int main()
 			cout << "Jugador dos, ingresá tu nombre: ";
 			cin >> jugador2;
 
+			do
+			{
+
+				cout << endl << "Que modo deseas usar?" << endl << endl;
+				cout << "Automático: La máquina genera los números al azar. Ingresá A para este modo" << endl;
+				cout << "Manual: Los dados los ingresa el usuario. Ingresá M para este modo" << endl;
+				cin >> modo;
+
+				modo = toupper(modo);
+
+				if (modo == 'A')
+				{
+					modoAutomatico = true;
+					validacion = true;
+				}
+				else
+				{
+					if (modo == 'M')
+					{
+						modoAutomatico = false;
+						validacion = true;
+					}
+					else
+					{
+						cout << "Opción inválida. Por favor ingresá de nuevo." << endl;
+						anykey();
+						system("cls");
+						validacion = false;
+					}
+				}
+			} while (validacion == false);
+
 			system("cls");
 
 			cout << "Comienza el juego! Se determinará que jugador tira primero." << endl;
 			cout << "El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
 			// Funcion de establecer primer jugador
-
-			primerJugadorJ1 = establecerPrimerJugador(jugador1, jugador2);
+			if (modoAutomatico == true)
+			{
+				primerJugadorJ1 = establecerPrimerJugador(jugador1, jugador2);
+			}
+			else
+			{
+				primerJugadorJ1 = establecerPrimerJugadorManual(jugador1, jugador2);
+			}
 
 			if (primerJugadorJ1 == true)
 
@@ -126,6 +170,9 @@ int main()
 					char jugadorInactivo[50] = {};
 					int puntajePorRonda = 0;
 
+					contadorImpares = 0;
+					bonificacion = false;
+
 					if (i == 1 && x == 1)
 					{
 						contadorDadosElegidos = 0;
@@ -136,6 +183,7 @@ int main()
 					{
 						memcpy(jugadorActual, jugadorInicial, 50); //asigna el nombre del jugador actual a jugadorActual
 						memcpy(jugadorInactivo, jugadorSecundario, 50);
+
 						dadosStockJugadorActual = dadosStockJI + contadorDadosElegidos; //Le da al stock del jugador actual el valor de dados stock jugadorInicial
 						dadosStockJugadorInactivo = dadosStockJS;
 					}
@@ -143,6 +191,7 @@ int main()
 					{
 						memcpy(jugadorActual, jugadorSecundario, 50);
 						memcpy(jugadorInactivo, jugadorInicial, 50);
+
 						dadosStockJugadorActual = dadosStockJS + contadorDadosElegidos;
 						dadosStockJugadorInactivo = dadosStockJI;
 					}
@@ -172,7 +221,14 @@ int main()
 					rollDados();
 
 					//Funcion para calcular el numero objetivo
-					numObj = tiradaNumeroObjetivo();
+					if (modoAutomatico == true)
+					{
+						numObj = tiradaNumeroObjetivo();
+					}
+					else
+					{
+						numObj = tiradaNumeroObjetivoManual();
+					}
 
 					cout << "\t-----------------" << endl;
 					cout << "\tNumero objetivo: " << numObj << endl << endl;
@@ -182,8 +238,16 @@ int main()
 
 					cout << endl << "\t\t\tTirando dados..." << endl << endl;
 					setColor(BROWN);
+
 					// Funcion que simula la tirada de los dados stock
-					tiradaJugador(vTiradaJugadorActual, dadosStockJugadorActual);
+					if (modoAutomatico == true)
+					{
+						tiradaJugador(vTiradaJugadorActual, dadosStockJugadorActual);
+					}
+					else
+					{
+						tiradaJugadorManual(vTiradaJugadorActual, dadosStockJugadorActual);
+					}
 					setColor(LIGHTBLUE);
 
 					cout << endl << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
@@ -193,11 +257,16 @@ int main()
 						cout << endl << "Elegi la posicion del dado o ingresá 0 para pasar el turno: ";
 						cin >> dadoelegido;
 
-						if (dadoelegido != 0 && dadoelegido <= dadosStockJugadorActual)
+						if (dadoelegido > 1 && dadoelegido <= dadosStockJugadorActual)
 						{
 							vTiradaDadosSeleccionados[contadorDadosElegidos] = vTiradaJugadorActual[dadoelegido - 1];
 							contadorDadosElegidos++;
 							sumaseleccionada += vTiradaJugadorActual[dadoelegido - 1];
+
+							if (vTiradaJugadorActual[dadoelegido - 1] % 2 != 0)
+							{
+								contadorImpares++;
+							}
 
 							vTiradaJugadorActual[dadoelegido - 1] = 0;
 
@@ -220,9 +289,20 @@ int main()
 
 					} while ((sumaseleccionada != numObj) && (dadoelegido != 0));
 
+					if (contadorImpares == contadorDadosElegidos)
+					{
+						bonificacion = true;
+					}
 
 					//Funcion para calcular el puntaje de cada ronda
-					puntajePorRonda = puntajeRonda(contadorDadosElegidos, sumaseleccionada);
+					if (bonificacion == true)
+					{
+						puntajePorRonda = puntajeRondaBonif(contadorDadosElegidos, sumaseleccionada);
+					}
+					else
+					{
+						puntajePorRonda = puntajeRonda(contadorDadosElegidos, sumaseleccionada);
+					}
 
 					if ((sumaseleccionada == numObj) && (contadorDadosElegidos == dadosStockJugadorActual))
 					{
@@ -249,6 +329,12 @@ int main()
 						{
 							setColor(LIGHTGREEN);
 							cout << endl << "Suma selecccionada con exito. Su tirada ha sido una tirada exitosa." << endl << endl;
+							if (bonificacion == true)
+							{
+								cout << "Ha logrado la suma seleccionada con todos numeros impares." << endl;
+								cout << "Obtiene una bonificacion del 50% sobre los puntos obtenidos!!" << endl;
+							}
+
 							setColor(WHITE);
 							cout << "Suma objetivo: " << numObj << endl;
 							// Funcion que muestra los dados elegidos en esa ronda
@@ -335,7 +421,7 @@ int main()
 			if (primerJugadorJ1 == true)
 
 			{
-				cout << "\t"<< jugador1 << ": " << puntajeTotalJI << endl;
+				cout << "\t" << jugador1 << ": " << puntajeTotalJI << endl;
 				cout << "\t" << jugador2 << ": " << puntajeTotalJS << endl;
 			}
 			else
@@ -351,7 +437,7 @@ int main()
 		case 2: // Opción Estadísticas
 			system("cls");
 
-			mostrarMembrete();
+			mostrarMembrete2();
 
 			locate(28, 7);
 			cout << "---- Estadísticas ----" << endl << endl;

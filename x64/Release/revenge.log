@@ -1,9 +1,20 @@
-﻿  main.cpp
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\rlutil.h(577,32): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\main.cpp(20,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating code
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\funciones.cpp(197): warning C4715: 'confirmacion': not all control paths return a value
+﻿  funciones.cpp
+C:\Users\Myxo\Documents\GitHub\Revenge\rlutil.h(577,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(26,11): warning C4129: ' ': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(38,11): warning C4129: '/': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(38,11): warning C4129: '|': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(41,11): warning C4129: ' ': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(53,11): warning C4129: '/': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(53,11): warning C4129: '|': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(56,11): warning C4129: ' ': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(68,11): warning C4129: '/': secuencia de escape de carácter no reconocida
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(68,11): warning C4129: '|': secuencia de escape de carácter no reconocida
+  main.cpp
+C:\Users\Myxo\Documents\GitHub\Revenge\rlutil.h(577,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Myxo\Documents\GitHub\Revenge\main.cpp(20,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Generando código
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+C:\Users\Myxo\Documents\GitHub\Revenge\funciones.cpp(197): warning C4715: 'confirmacion': no todas las rutas de acceso de control devuelven un valor
   All 245 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  revenge.vcxproj -> C:\Users\eramirez\Desktop\Shared\Repositorios\Revenge\x64\Release\revenge.exe
+  Generación de código finalizada
+  revenge.vcxproj -> C:\Users\Myxo\Documents\GitHub\Revenge\x64\Release\revenge.exe
