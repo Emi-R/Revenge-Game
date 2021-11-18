@@ -232,20 +232,22 @@ bool establecerPrimerJugador(char j1[], char j2[])
 		cout << j1 << " presioná Enter para tirar tu dado." << endl;
 		system("Pause>nul");
 
-		cout << "Tirando dados..." << endl << endl;
+		cout << endl << "\tTirando dados..." << endl << endl;
 		rollDados();
 		dadocomienzo1 = 1 + rand() % 6;
 
-		cout << "Salio el: " << dadocomienzo1 << endl << endl;
+		cout << "\t-----------------" << endl;
+		cout << "\t   Salio el: " << dadocomienzo1 << endl << endl;
 
 		cout << j2 << " presioná Enter para tirar tu dado." << endl;
 		system("Pause>nul");
 
-		cout << "Tirando dados..." << endl << endl;
+		cout << endl << "\tTirando dados..." << endl << endl;
 		rollDados();
 		dadocomienzo2 = 1 + rand() % 6;
 
-		cout << "Salio el: " << dadocomienzo2 << endl << endl;
+		cout << "\t-----------------" << endl;
+		cout << "\t   Salio el: " << dadocomienzo2 << endl << endl;
 
 		if (dadocomienzo1 == dadocomienzo2)
 		{
@@ -515,4 +517,14 @@ void mostrarDadosElegidos(int v2[], int size)
 	}
 
 	cout << " }";
+}
+
+void reiniciarDadosElegidos(bool v[], int dadosStock)
+{
+
+	for (int i = 0; i < dadosStock; i++)
+	{
+		v[i] = false;
+	}
+
 }

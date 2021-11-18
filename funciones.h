@@ -35,3 +35,5 @@ int TotalDadosStock(int dadosStock, int contadorDE);
 int puntajeRonda(int contadorDS, int totalSS);
 
 int puntajeRondaBonif(int dadosDS, int totalSS);
+
+void reiniciarDadosElegidos(bool v[], int dadosStock);

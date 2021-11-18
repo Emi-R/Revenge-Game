@@ -34,6 +34,8 @@ int main()
 	char jugadorInicial[52] = {};
 	char jugadorSecundario[52] = {};
 
+	bool vSeleccion[12];
+
 	int dadosStockJI;
 	int dadosStockJS;
 
@@ -169,6 +171,7 @@ int main()
 					char jugadorActual[50] = {};
 					char jugadorInactivo[50] = {};
 					int puntajePorRonda = 0;
+					
 
 					contadorImpares = 0;
 					bonificacion = false;
@@ -204,6 +207,8 @@ int main()
 
 					contadorDadosElegidos = 0;
 
+					reiniciarDadosElegidos(vSeleccion, dadosStockJugadorActual);
+
 					system("cls");
 					setColor(WHITE);
 					cout << "\t---- Ronda: " << i << " ----" << endl;
@@ -217,7 +222,7 @@ int main()
 					cout << "El número que salga sera el número objetivo." << endl;
 
 					anykey();
-					cout << "Tirando dados..." << endl << endl;
+					cout << endl << "\tTirando dados..." << endl << endl;
 					rollDados();
 
 					//Funcion para calcular el numero objetivo
@@ -257,11 +262,13 @@ int main()
 						cout << endl << "Elegi la posicion del dado o ingresá 0 para pasar el turno: ";
 						cin >> dadoelegido;
 
-						if (dadoelegido > 1 && dadoelegido <= dadosStockJugadorActual)
+						if (dadoelegido > 0 && dadoelegido <= dadosStockJugadorActual && vSeleccion[dadoelegido] == false)
 						{
 							vTiradaDadosSeleccionados[contadorDadosElegidos] = vTiradaJugadorActual[dadoelegido - 1];
 							contadorDadosElegidos++;
 							sumaseleccionada += vTiradaJugadorActual[dadoelegido - 1];
+
+							vSeleccion[dadoelegido] = true;
 
 							if (vTiradaJugadorActual[dadoelegido - 1] % 2 != 0)
 							{
@@ -283,7 +290,7 @@ int main()
 							else
 							{
 								setColor(RED);
-								cout << "El dado elegido no se encuentra en sus dados stock. Volve a intentarlo! " << endl;
+								cout << "El dado elegido no se encuentra en sus dados stock o ya lo elegiste. Volve a intentarlo! " << endl;
 								setColor(LIGHTBLUE);
 							}
 
