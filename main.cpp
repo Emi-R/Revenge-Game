@@ -1,14 +1,14 @@
 /*****************************************************
-* 	  Proyecto Final Laboratorio de Computacion I    
-* 													 
-*				  Juego: "Revenge"					 
-*													 
-* 				Gottig, Marianella					 
-*			   	Illanes, Maria Jose				     
-*			   	Ramirez, Emiliano					 
-*													 
-* 				 Diciembre 2016					     
-*													 
+ 	Proyecto Final Laboratorio de Computacion I    
+ 													 
+			Juego: "Revenge"					 
+													 
+ 			Gottig, Marianella					 
+			Illanes, Maria Jose				     
+			Ramirez, Emiliano					 
+													 
+ 			Diciembre 2016					     
+													 
 ******************************************************/
 
 #include <iostream>
