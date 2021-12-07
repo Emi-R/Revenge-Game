@@ -1,3 +1,16 @@
+/*****************************************************
+* 	  Proyecto Final Laboratorio de Computacion I    *
+* 													 *
+*				  Juego: "Revenge"					 *
+*													 *
+* 				Gottig, Marianella					 *
+*			   	Illanes, Maria Jose				     *
+*			   	Ramirez, Emiliano					 *
+*													 *
+* 				 Diciembre 2016					     *
+*													 *
+******************************************************/
+
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -10,8 +23,6 @@
 
 using namespace std;
 using namespace rlutil;
-
-//funcion que recibe el total de contador de dados stock y el total de la suma seleccionada, y el num de x
 
 int main()
 {
@@ -60,10 +71,10 @@ int main()
 
 	do
 	{
-		// Funcion para mostrar menú
+		// Funcion para mostrar menï¿½
 		mostrarMenu();
 		locate(22, 14);
-		cout << "Bienvenido! Seleccioná la opcion deseada: ";
+		cout << "Bienvenido! Seleccionï¿½ la opcion deseada: ";
 		cin >> opcion;
 
 		switch (opcion)
@@ -73,18 +84,18 @@ int main()
 			system("cls");
 
 			// Pedir Nombres
-			cout << "Jugador uno, ingresá tu nombre: ";
+			cout << "Jugador uno, ingresï¿½ tu nombre: ";
 			cin >> jugador1;
 
-			cout << "Jugador dos, ingresá tu nombre: ";
+			cout << "Jugador dos, ingresï¿½ tu nombre: ";
 			cin >> jugador2;
 
 			do
 			{
 
 				cout << endl << "Que modo deseas usar?" << endl << endl;
-				cout << "Automático: La máquina genera los números al azar. Ingresá A para este modo" << endl;
-				cout << "Manual: Los dados los ingresa el usuario. Ingresá M para este modo" << endl;
+				cout << "Automï¿½tico: La mï¿½quina genera los nï¿½meros al azar. Ingresï¿½ A para este modo" << endl;
+				cout << "Manual: Los dados los ingresa el usuario. Ingresï¿½ M para este modo" << endl;
 				cin >> modo;
 
 				modo = toupper(modo);
@@ -103,7 +114,7 @@ int main()
 					}
 					else
 					{
-						cout << "Opción inválida. Por favor ingresá de nuevo." << endl;
+						cout << "Opciï¿½n invï¿½lida. Por favor ingresï¿½ de nuevo." << endl;
 						anykey();
 						system("cls");
 						validacion = false;
@@ -113,7 +124,7 @@ int main()
 
 			system("cls");
 
-			cout << "Comienza el juego! Se determinará que jugador tira primero." << endl;
+			cout << "Comienza el juego! Se determinarï¿½ que jugador tira primero." << endl;
 			cout << "El jugador que tire el dado mas alto empieza tirando." << endl << endl;
 
 			// Funcion de establecer primer jugador
@@ -138,7 +149,7 @@ int main()
 				memcpy(jugadorSecundario, jugador1, 50);
 			}
 
-			cout << jugadorInicial << " sacó el número mas alto! Comienza tirando." << endl;
+			cout << jugadorInicial << " sacï¿½ el nï¿½mero mas alto! Comienza tirando." << endl;
 
 			anykey();
 			system("cls");
@@ -218,8 +229,8 @@ int main()
 					cout << "\t---- Puntaje " << jugadorInicial << ": " << puntajeTotalJI << " ----" << endl;
 					cout << "\t---- Puntaje " << jugadorSecundario << ": " << puntajeTotalJS << " ----" << endl << endl;
 					setColor(LIGHTBLUE);
-					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
-					cout << "El número que salga sera el número objetivo." << endl;
+					cout << jugadorActual << " presionï¿½ Enter para tirar los dados." << endl;
+					cout << "El nï¿½mero que salga sera el nï¿½mero objetivo." << endl;
 
 					anykey();
 					cout << endl << "\tTirando dados..." << endl << endl;
@@ -238,7 +249,7 @@ int main()
 					cout << "\t-----------------" << endl;
 					cout << "\tNumero objetivo: " << numObj << endl << endl;
 
-					cout << jugadorActual << " presioná Enter para tirar los dados." << endl;
+					cout << jugadorActual << " presionï¿½ Enter para tirar los dados." << endl;
 					anykey();
 
 					cout << endl << "\t\t\tTirando dados..." << endl << endl;
@@ -255,11 +266,11 @@ int main()
 					}
 					setColor(LIGHTBLUE);
 
-					cout << endl << endl << "\t-- Seleccioná los dados de la tirada a sumar --" << endl;
+					cout << endl << endl << "\t-- Seleccionï¿½ los dados de la tirada a sumar --" << endl;
 
 					do
 					{
-						cout << endl << "Elegi la posicion del dado o ingresá 0 para pasar el turno: ";
+						cout << endl << "Elegi la posicion del dado o ingresï¿½ 0 para pasar el turno: ";
 						cin >> dadoelegido;
 
 						if (dadoelegido > 0 && dadoelegido <= dadosStockJugadorActual && vSeleccion[dadoelegido] == false)
@@ -314,7 +325,7 @@ int main()
 					if ((sumaseleccionada == numObj) && (contadorDadosElegidos == dadosStockJugadorActual))
 					{
 						setColor(LIGHTGREEN);
-						cout << jugadorActual << " ganó la partida!! Su tirada ha sido exitosa y se quedó sin dados. " << endl << endl;
+						cout << jugadorActual << " ganï¿½ la partida!! Su tirada ha sido exitosa y se quedï¿½ sin dados. " << endl << endl;
 						setColor(LIGHTBLUE);
 
 						if (x == 1)
@@ -350,7 +361,7 @@ int main()
 							cout << endl << "Puntaje de la ronda: " << puntajePorRonda << endl;
 							cout << "Dados enviados a " << jugadorInactivo << ": " << contadorDadosElegidos << endl << endl;
 							setColor(LIGHTBLUE);
-							cout << "Presioná Enter para continuar.";
+							cout << "Presionï¿½ Enter para continuar.";
 							anykey();
 						}
 						else
@@ -360,14 +371,14 @@ int main()
 
 							if (dadosStockJugadorInactivo > 1)
 							{
-								cout << jugadorActual << " sufre penalización. " << jugadorInactivo << " le envía un dado." << endl;
+								cout << jugadorActual << " sufre penalizaciï¿½n. " << jugadorInactivo << " le envï¿½a un dado." << endl;
 								setColor(LIGHTBLUE);
 								BPenalizacion = 1;
 							}
 							else
 							{
 								setColor(LIGHTCYAN);
-								cout << "Safó " << jugadorActual << ". No sufre penalización ya que " << jugadorInactivo << " tiene 1 solo dado stock" << endl;
+								cout << "Safï¿½ " << jugadorActual << ". No sufre penalizaciï¿½n ya que " << jugadorInactivo << " tiene 1 solo dado stock" << endl;
 								setColor(LIGHTBLUE);
 							}
 							anykey();
@@ -437,31 +448,31 @@ int main()
 				cout << "\t" << jugador2 << ": " << puntajeTotalJI << endl;
 			}
 			setColor(LIGHTBLUE);
-			cout << endl << "Presioná cualquier tecla para volver al menú principal." << endl;
+			cout << endl << "Presionï¿½ cualquier tecla para volver al menï¿½ principal." << endl;
 			anykey();
 
 			break;
-		case 2: // Opción Estadísticas
+		case 2: // Opciï¿½n Estadï¿½sticas
 			system("cls");
 
 			mostrarMembrete2();
 
 			locate(28, 7);
-			cout << "---- Estadísticas ----" << endl << endl;
+			cout << "---- Estadï¿½sticas ----" << endl << endl;
 			locate(25, 9);
 			cout << "      Jugador: " << JugadorMayorPuntaje << endl << endl;
 			locate(25, 10);
 			cout << "      Mayor Puntaje: " << MayorPuntaje << endl;
 			locate(27, 12);
-			cout << "Presioná cualquier tecla" << endl;
+			cout << "Presionï¿½ cualquier tecla" << endl;
 			locate(27, 13);
-			cout << "para volver al menú principal." << endl;
+			cout << "para volver al menï¿½ principal." << endl;
 			system("Pause>nul");
 			break;
-		case 3:// Opción Créditos
+		case 3:// Opciï¿½n Crï¿½ditos
 			mostrarCreditos();
 			break;
-		case 4:// Opción Mostrar Reglas
+		case 4:// Opciï¿½n Mostrar Reglas
 			mostrarReglas();
 			break;
 		case 0:
