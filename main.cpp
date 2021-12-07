@@ -1,5 +1,5 @@
 /*****************************************************
- 	Proyecto Final Laboratorio de Computacion I UTN (FRGP)    
+Proyecto Final Laboratorio de Computacion I UTN (FRGP)    
  													 
 		Juego: "Revenge"					 
 													 
