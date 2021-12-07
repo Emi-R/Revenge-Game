@@ -3,9 +3,9 @@ Proyecto Final Laboratorio de Computacion I UTN (FRGP)
  													 
 		Juego: "Revenge"					 
 													 
- 		Gottig, Marianella					 
-		Illanes, Maria Jose				     
-		Ramirez, Emiliano					 
+ 		Gottig, Marianella - Leg: 25508					 
+		Illanes, Maria Jose - Leg: 24512				     
+		Ramirez, Emiliano - Leg: 25583					 
 													 
  		Diciembre 2016					     
 													 
